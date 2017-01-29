@@ -13,8 +13,7 @@ class LinkedList {
     }
 
     append(data) {
-        var node = data;
-        console.log(node);
+        var node = new Node(data);
         if (this.length) {
             this._tail.next = node;
             node.prev = this._tail;
@@ -27,20 +26,41 @@ class LinkedList {
     }
     
     head() {
-        return this._head;
+        if (this.length) {
+            return this._head.data;
+        } else {
+            return null;
+        }
     }
 
     tail() {
-        return this._tail;
+        if (this.length) {
+            return this._tail.data;
+        } else {
+            return null;
+        }
     }
 
-    at(index) {}
+    at(index) {
+        
+    }
 
     insertAt(index, data) {}
 
-    isEmpty() {}
+    isEmpty() {
+        if (this.length) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 
-    clear() {}
+    clear() {
+        this.length = 0;
+        this._head = null;
+        this._tail = null;
+    }
 
     deleteAt(index) {}
 
@@ -48,25 +68,20 @@ class LinkedList {
 
     indexOf(data) {}
 }
-/*var node1 = new Node(42);
-var node2 = new Node(123);
-var node3 = new Node(413);
-
-console.log("node1: ",node1);
 var list1 = new LinkedList();
+console.log("list: ",list1, list1.isEmpty());
+list1.append(42);
+console.log("list: ",list1, list1.isEmpty());
+list1.clear();
+console.log(list1, list1.head(), list1.tail());
+/*list1.append(123);
 console.log("list: ",list1);
-list1.append(node1);
-console.log(list1.length);
-console.log( list1._tail, list1._tail instanceof Node);
-console.log( list1._head, list1._head instanceof Node);
-list1.append(node2);
-console.log(list1.length);
-list1.append(node3);
-console.log(list1.length, list1.tail(), list1.head());
+list1.append(413);
 console.log("append: ",list1);
-console.log("head: ",list1.head());
 
+console.log("head: ",list1.head());
 console.log("tail: ",list1.tail());*/
+
 
 
 
