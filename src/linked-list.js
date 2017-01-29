@@ -1,33 +1,37 @@
+"use strict";
 const Node = require('./node');
 
 class LinkedList {
-    constructor(_length = 0, head = null, tail = null) {
-        this._length = _length;
-        this.head = head;
-        this.tail = tail;
+    constructor(length /*= 0*/, _head /*= null*/, _tail /*= null*/) {
+        length = typeof length !== 'undefined' ?  length : 0;
+        _head = typeof _head !== 'undefined' ?  _head : null;
+        _tail = typeof _tail !== 'undefined' ?  _tail : null;
+        
+        this.length = length;
+        this._head = _head;
+        this._tail = _tail;
     }
 
     append(data) {
         var node = data;
         console.log(node);
-        if (this._length) {
-            this.tail.next = node;
-            node.prev = this.tail;
-            this.tail = node;
+        if (this.length) {
+            this._tail.next = node;
+            node.prev = this._tail;
+            this._tail = node;
         } else {
-            this.head = node;
-            this.tail = node;
+            this._head = node;
+            this._tail = node;
         }
-        this._length++; 
-        return node;
+        this.length++; 
     }
     
     head() {
-        return this.head;
+        return this._head;
     }
 
     tail() {
-        return this.tail;
+        return this._tail;
     }
 
     at(index) {}
@@ -44,23 +48,25 @@ class LinkedList {
 
     indexOf(data) {}
 }
-/*var node1 = new Node("grgrg", null, null);
-var node2 = new Node(33, null, null);
-var node3 = new Node(88, null, null);
-var node4 = new Node(55, null, null);
+/*var node1 = new Node(42);
+var node2 = new Node(123);
+var node3 = new Node(413);
 
 console.log("node1: ",node1);
 var list1 = new LinkedList();
 console.log("list: ",list1);
 list1.append(node1);
+console.log(list1.length);
+console.log( list1._tail, list1._tail instanceof Node);
+console.log( list1._head, list1._head instanceof Node);
 list1.append(node2);
+console.log(list1.length);
 list1.append(node3);
-list1.append(node4);
+console.log(list1.length, list1.tail(), list1.head());
 console.log("append: ",list1);
+console.log("head: ",list1.head());
 
-console.log("head: ",list1.head);
-
-console.log("tail: ",list1.tail);*/
+console.log("tail: ",list1.tail());*/
 
 
 
