@@ -151,16 +151,32 @@ class LinkedList {
 
     reverse() {}
 
-    indexOf(data) {}
+    indexOf(data) {
+        var currentNode = this._head,
+        length = this.length,
+        found = false;
+        for (var i = 0; i < length; i++) {
+            if (currentNode.data == data) {
+                found = true;
+                return i;
+            }
+            else {
+                currentNode = currentNode.next;
+            }
+        }
+        if (!found) {
+            return -1;
+        }
+        
+    }
 }
 var list1 = new LinkedList();
 console.log("list: ",list1, list1.isEmpty());
 list1.append(32);
 list1.append(47);
+list1.append(21);
 console.log("list: ",list1, list1.isEmpty());
-console.log(list1.at(1));
-list1.insertAt(1, 34);
-console.log(list1.at(1));
+console.log(list1.indexOf(57));
 /*list1.append(123);
 console.log("list: ",list1);
 list1.append(413);
