@@ -23,6 +23,7 @@ class LinkedList {
             this._tail = node;
         }
         this.length++; 
+        return this;
     }
     
     head() {
@@ -43,14 +44,12 @@ class LinkedList {
 
     at(index) {
         var currentNode = this._head,
-        length = this.length,
-        i = 0;
+        length = this.length;
         if (length === 0 || index < 0 || index > length) {
             console.log("node doesn't exist");
         }
-        while (i < index) {
+        for (var i=0; i < index; i++) {
             currentNode = currentNode.next;
-            i++;
         }
         return currentNode.data;
     }
@@ -59,31 +58,29 @@ class LinkedList {
         var currentNode = this._head,
         addingNode = new Node(data),
         length = this.length,
-        i = 0,
         nodePrevToInsert = null,
         nodeNextToInsert = null,
         nodeToInsert = null,
         addedNode = null;
-        if (length === 0 || index < 0 || index > length) {
+        if (index < 0 || index > length) {
             console.log("can't do it");
         }
         if (index === 0) {
             addingNode.next = this._head;
             this._head = addingNode;
-            /*if (!this._head) {
-                this._head.prev = null;
+            if (length == 0) {
+                this._tail = addingNode;
             } else {
-                this._tail = null;
-            }*/
+                this._head.prev = null;
+            }
         } 
         else if (index === this.length) {
             this.append(data);
             this.length--;
         } 
         else {
-            while (i < index) {
+            for (var i=0; i < index; i++)  {
                 currentNode = currentNode.next;
-                i++;
             }
             nodePrevToInsert = currentNode.prev;
             nodeToInsert = currentNode;
@@ -93,6 +90,7 @@ class LinkedList {
             addingNode.next = nodeToInsert;
         }
         this.length++;
+        return this;
     }
 
     isEmpty() {
@@ -108,25 +106,28 @@ class LinkedList {
         this.length = 0;
         this._head = null;
         this._tail = null;
+        return this;
     }
 
     deleteAt(index) {
         var currentNode = this._head,
         length = this.length,
-        i = 0,
         nodePrevToDelete = null,
         nodeNextToDelete = null,
         nodeToDelete = null,
         deletedNode = null;
+        console.log(index, length);
         if (length === 0 || index < 0 || index > length) {
             console.log("can't do it");
         }
         if (index === 0) {
             this._head = currentNode.next;
-            if (!this._head) {
-                this._head.prev = null;
-            } else {
+            if (length == 1) {
                 this._tail = null;
+                this._head = null;
+            } else {
+                this._head.prev = null;
+                
             }
         } 
         else if (index === this.length-1) {
@@ -134,9 +135,8 @@ class LinkedList {
             this._tail.next = null;
         } 
         else {
-            while (i < index) {
+            for (var i=0; i < index; i++) {
                 currentNode = currentNode.next;
-                i++;
             }
             nodePrevToDelete = currentNode.prev;
             nodeToDelete = currentNode;
@@ -147,9 +147,28 @@ class LinkedList {
             nodeToDelete = null;
         }
         this.length--;
+        return this;
     }
 
-    reverse() {}
+    reverse() {
+        var currentNode = this._head,
+        tempNode = null,
+        length = this.length;
+        
+        if (length !== 1) {
+            for (var i = 0; i < length; i++) {
+                tempNode = currentNode.prev;
+                currentNode.prev = currentNode.next;
+                currentNode.next = tempNode;
+                currentNode = currentNode.prev;
+            }
+        }
+        
+        tempNode = this._head;
+        this._head = this._tail;
+        this._tail = tempNode;
+        return this;
+    }
 
     indexOf(data) {
         var currentNode = this._head,
@@ -170,21 +189,6 @@ class LinkedList {
         
     }
 }
-var list1 = new LinkedList();
-console.log("list: ",list1, list1.isEmpty());
-list1.append(32);
-list1.append(47);
-list1.append(21);
-console.log("list: ",list1, list1.isEmpty());
-console.log(list1.indexOf(57));
-/*list1.append(123);
-console.log("list: ",list1);
-list1.append(413);
-console.log("append: ",list1);
-
-console.log("head: ",list1.head());
-console.log("tail: ",list1.tail());*/
-
 
 
 
